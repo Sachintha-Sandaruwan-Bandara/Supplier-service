@@ -1,5 +1,6 @@
+
 import java.util.*;
-import java.util.function.Supplier;
+
 
 
 class courseWork{
@@ -28,19 +29,30 @@ class courseWork{
             System.err.println(e.getMessage());
         }
     }
-
     public static void main(String args[]) {
 
         loginPage();
 
     }
-
+    private static boolean yesNo(String x) {
+     L1: while(true) {
+          System.out.print(x);
+          String yesNo = input.next();
+          boolean flag = false;
+          yesNo = yesNo.toUpperCase();
+          if (yesNo.equals("Y") || yesNo.equals("YES")) {
+              flag = true;
+          } else if (yesNo.equals("N") || yesNo.equals("NO")) {
+              flag = false;
+          }else{
+            continue L1;
+          }
+          return flag;
+      }
+    }
     private static void loginPage() {
+        title("LOGIN PAGE");
 
-        System.out.println("                    +-----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                   LOGIN PAGE                                      | ");
-        System.out.println("                    +-----------------------------------------------------------------------------------+");
-        System.out.println();
         String un = "";
         String pw = "";
         boolean unflag = false;
@@ -80,99 +92,134 @@ class courseWork{
 
 
     }
-
+    private static void title(String x) {
+        System.out.printf("                   +----------------------------------------------------------------------------------------------------+\n");
+        System.out.printf("                   |                  %50s                                |\n",x);
+        System.out.printf("                   +----------------------------------------------------------------------------------------------------+\n");
+      System.out.println();
+    }
     private static void menu() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                        WELCOME TO IJSE STOCK MANAGEMENT SYSTEM                   | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("WELCOME TO IJSE STOCK MANAGEMENT SYSTEM");
+        while (true) {
+            System.out.println("		[1]Change the Credentials                                       [2]Suplier Manage");
+            System.out.println("		[3]Stock Manage                                                 [4]Log out");
+            System.out.println("		[5]Exit the System ");
 
-        System.out.println("		[1]Change the Credentials                                       [2]Suplier Manage");
-        System.out.println("		[3]Stock Manage                                                 [4]Log out");
-        System.out.println("		[5]Exit the System ");
+            System.out.println();
+            System.out.print("                ENTER AN OPTION TO COTINUE :");
+            int x = input.nextInt();
 
-        System.out.println();
-        System.out.print("                ENTER AN OPTION TO COTINUE :");
-        int x = input.nextInt();
+            switch (x) {
+                case 1:
+                    clearConsole();
+                    ChangeTheCredentials();
 
-        switch (x) {
-            case 1:
-                clearConsole();
-                ChangeTheCredentials();
+                    break;
+                case 2:
+                    clearConsole();
+                    SuplierManage();
+                    break;
+                case 3:
+                    clearConsole();
+                    StockManage();
+                    break;
+                case 4:
+                    clearConsole();
+                    loginPage();
+                    break;
+                case 5:
+                    System.exit(0);
+                    break;
 
-                break;
-            case 2:
-                clearConsole();
-                SuplierManage();
-                break;
-            case 3:
-                clearConsole();
-                StockManage();
-                break;
-            case 4:
-                clearConsole();
-                loginPage();
-                break;
-            case 5:
-                System.exit(0);
-                break;
+                default:
+                    System.out.println("wrong input!!! please input number belongs to menu....");
+            }
 
-            default:
-                System.out.println("wrong input!!! please input number belongs to menu....");
         }
-
-
     }
-
     private static void StockManage() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                 STOCK MANAGEMENT                                | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("STOCK MANAGEMENT");
+        while (true) {
+            System.out.println("		[1]Manage Item Categories                                                               [2]Add Item");
+            System.out.println("		[3]Get Items Supplier Wise                                                              [4]View Items");
+            System.out.println("		[5]Rank Items Per Unit Price                                                            [6]Home Page");
 
-        System.out.println("		[1]Manage Item Categories                                                               [2]Add Item");
-        System.out.println("		[3]Get Items Supplier Wise                                                              [4]View Items");
-        System.out.println("		[5]Rank Items Per Unit Price                                                            [6]Home Page");
+            System.out.println();
+            System.out.print("                ENTER AN OPTION TO COTINUE :");
+            int x = input.nextInt();
+            switch (x) {
+                case 1:
+                    clearConsole();
+                    ManageItemCategories();
 
-        System.out.println();
-        System.out.print("                ENTER AN OPTION TO COTINUE :");
-        int x = input.nextInt();
-        switch (x) {
-            case 1:
-                clearConsole();
-                ManageItemCategories();
-
-                break;
-          case 2:
-                clearConsole();
-                AddItem();
-                break;
-            case 3:
-                clearConsole();
-                GetItemsSupplierWise();
-                break;
-             case 4:
-                clearConsole();
-                ViewItems();
-                break;
-         /*    case 5:
-                clearConsole();
-                RankItemsPerUnitPrice ();
-                break;*/
-            case 6:
-                clearConsole();
-                menu();
-                break;
-            default:
-                System.out.println("wrong input!!! please input number belongs to menu....");
+                    break;
+                case 2:
+                    clearConsole();
+                    AddItem();
+                    break;
+                case 3:
+                    clearConsole();
+                    GetItemsSupplierWise();
+                    break;
+                case 4:
+                    clearConsole();
+                    ViewItems();
+                    break;
+                case 5:
+                    clearConsole();
+                    RankItemsPerUnitPrice();
+                    break;
+                case 6:
+                    clearConsole();
+                    menu();
+                    break;
+                default:
+                    System.out.println("wrong input!!! please input number belongs to menu....");
+            }
         }
     }
+    private static void RankItemsPerUnitPrice() {
+        title(" RANKED UNIT PRICE");
 
+            String[][]temp = sort(item);
+
+            System.out.printf("+-------------------------------+-------------------------------+-------------------------------+-------------------------------+-------------------------------+-------------------------------+%n");
+            System.out.printf("|%15s           |%15s           |%15s           |%15s           |%15s           |%15s           |%n","SID","CODE","DESC","PRICE","QTY","CAT");
+            System.out.printf("+-------------------------------+-------------------------------+-------------------------------+-------------------------------+-------------------------------+-------------------------------+%n");
+
+            for (int i = 0; i < item.length; i++){
+                System.out.printf("| "+temp[i][1]+" | "+temp[i][0]+" | "+temp[i][3]+" | "+temp[i][4]+" | "+temp[i][5]+" | "+temp[i][2]+" |%n");
+            }
+
+            System.out.printf("+-------------------------------+-------------------------------+-------------------------------+-------------------------------+-------------------------------+-------------------------------+%n");
+
+//System.out.println(Arrays.deepToString(temp));
+            boolean checked=yesNo("\nDo you want to go stock manage page (Y/N) ");
+
+            if(checked){
+                clearConsole();
+              StockManage();
+            }
+            System.exit(0);
+
+    }
+    private static String[][] sort(String[][] array){
+        String[][] temp1 = array;
+        String[] temp2 = new String[6];
+
+        for(int i=0;i<temp1.length-1;i++){
+            for(int j=0;j<temp1.length-1;j++){
+                if(Integer.parseInt(temp1[j][4])>Integer.parseInt(temp1[j+1][4])){
+                    temp2 = temp1[j];
+                    temp1[j]=temp1[j+1];
+                    temp1[j+1]=temp2;
+                }
+            }
+        }
+        return temp1;
+    }
     private static void ViewItems() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                    VIEW ITEM                                    | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title(" VIEW ITEM");
 
             for (int i = 0; i < itemCategory.length; i++) {
                 System.out.println(itemCategory[i]+":");
@@ -186,92 +233,80 @@ class courseWork{
                 for (int j = 0; j < item.length; j++) {
 
                     if (itemCategory[i].equals(item[j][2])){
-                       /* System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
-                        System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", "SID", "CODE", "DESC", "PRICE", "QTY");
-                        System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");*/
-
                         System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", item[j][1], item[j][0], item[j][3], item[j][4], item[j][5]);
-                      //  System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
-
-
                     }
                 }
-
                 System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
-
-
             }
+            boolean checked=yesNo("do you want to go stock management page(Y/N)");
+
+           if (checked){
+               StockManage();
+           }else if(checked==false) {
+               menu();
+           }
+
 
     }
-
     private static void GetItemsSupplierWise() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                 SEARCH SUPPLIER                                | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("SEARCH SUPPLIER");
+
       L1: while (true) {
-           System.out.print("Enter Supplier Id : ");
-           String sId = input.next();
-           System.out.print("Supplier Name : ");
-           String sName = input.next();
-          for (int i = 0; i <item[i].length; i++) {
-              if (sId.equals(item[i][1])){
+          System.out.print("Enter Supplier Id : ");
+          String sId = input.next();
+          int count=0;
+          String sName="";
+
+          for (int i = 0; i < supplier.length; i++) {
+                if (sId.equals(supplier[i][0])){
+                    sName=supplier[i][1];
+                    count++;
+                }
+          }
+          if (count==1){
+              System.out.println("Supplier Name: "+sName);
+          }else{
+              System.out.println("can't find supplier!! try again");
+              continue L1;
+          }
+
+          for (int i = 0; i < item[i].length; i++) {
+              if (sId.equals(item[i][1])) {
                   System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
                   System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", "ITEM CODE", "DESCRIPTION", "UNIT PRICE", "QTY ON HAND", "CATEGORY");
                   System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
 
-                      System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", item[i][0], item[i][3], item[i][4], item[i][5], item[i][2]);
-                      System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
+                  System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", item[i][0], item[i][3], item[i][4], item[i][5], item[i][2]);
+                  System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
+                  boolean checked = yesNo("search successfully!!Do you want to another search(Y/N):");
 
-                  System.out.print("search successfully!!Do you want to another search(Y/N):");
-                  String yesNo= input.next();
-                  if(yesNo.equals("Y")){
+                  if (checked) {
                       continue L1;
-                  }else{
-                      loginPage();
+                  } else if (checked == false) {
+                      StockManage();
                   }
               }
           }
-           System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
-           System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", "ITEM CODE", "DESCRIPTION", "UNIT PRICE", "QTY ON HAND", "CATEGORY");
-           System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
-           for (int i = 0; i < item[i].length; i++) {
-               System.out.printf("|%15s        |%15s        |%15s        |%15s        |%15s        |\n", item[i][0], item[i][3], item[i][4], item[i][5], item[i][2]);
-               System.out.println("+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+");
-           }
-           System.out.print("search successfully!!Do you want to another search(Y/N):");
-           String yesNo= input.next();
-           if(yesNo.equals("Y")){
-               continue L1;
-           }else{
-              loginPage();
-           }
-       }
+        }
     }
-
     private static void AddItem() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                         ADD ITEM                                 | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("ADD ITEM");
+
         int j = 0;
+        growItem();
         L4:
         while(true) {
-            growItem();
-
-           if (itemCategory.length == 0) {
+            if (itemCategory.length == 0) {
 
                L1:
                while (true) {
+                    boolean checked=yesNo("oops it seems that you don't have any item categorys in the System.do you want to add a new item category(Y/N)");
 
-                   System.out.print("oops it seems that you don't have any item categorys in the System.do you want to add a new item category(Y/N)");
-                   String YesNo = input.next();
-                   YesNo = YesNo.toUpperCase();
-                   if (YesNo.equals("Y") || (YesNo.equals("YES"))) {
+                   if (checked) {
                        clearConsole();
                        AddNewItemCategory();
                        break;
-                   } else if (YesNo.equals("N") || (YesNo.equals("NO"))) {
+                   } else if (checked==false) {
                        StockManage();
                        break;
                    } else {
@@ -283,15 +318,13 @@ class courseWork{
            if (supplier.length == 0) {
                L2:
                while (true) {
+                    boolean checked=yesNo("oops it seems that you don't have any suppliers in the System.do you want to add a new supplier(Y/N)");
 
-                   System.out.print("oops it seems that you don't have any suppliers in the System.do you want to add a new supplier(Y/N)");
-                   String YesNo = input.next();
-                   YesNo = YesNo.toUpperCase();
-                   if (YesNo.equals("Y") || (YesNo.equals("YES"))) {
+                   if (checked) {
                        clearConsole();
                        AddSupplier();
 
-                   } else if (YesNo.equals("N") || (YesNo.equals("NO"))) {
+                   } else if (checked==false) {
                        clearConsole();
                        StockManage();
                        break;
@@ -355,26 +388,21 @@ class courseWork{
            System.out.print("Qty on hand : ");
            item[j][5]= input.next();
 
-
+            boolean checked=yesNo("added successfully!!Do you want to add another item(Y/N):");
            System.out.print("added successfully!!Do you want to add another item(Y/N):");
-            System.out.println(Arrays.deepToString(item));
-           String yesNo = input.next();
-           yesNo=yesNo.toUpperCase();
-           if (yesNo.equals("Y")||yesNo.equals("YES")) {
+
+           if (checked) {
                j++;
+               growItem();
                System.out.println(j);
                continue L4;
-           } else if (yesNo.equals("N")||yesNo.equals("NO")) {
+           } else if (checked==false) {
                clearConsole();
                StockManage();
                break L4;
            }
-
-
         }
-
     }
-
     private static void growItem() {
             String temp[][] = new String[item.length + 1][6];
             for (int i = 0; i < item.length; i++) {
@@ -384,47 +412,41 @@ class courseWork{
             }
             item = temp;
     }
-
     private static void ManageItemCategories() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                MANAGE ITEM CATEGORY                             | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("MANAGE ITEM CATEGORY");
+        while (true) {
+            System.out.println("		[1]Add New Item Category                                                               [2]Delete Item Category");
+            System.out.println("		[3]Update Item Category                                                                [4]Stock Management");
 
-        System.out.println("		[1]Add New Item Category                                                               [2]Delete Item Category");
-        System.out.println("		[3]Update Item Category                                                                [4]Stock Management");
+            System.out.println();
+            System.out.print("                ENTER AN OPTION TO COTINUE :");
+            int x = input.nextInt();
+            switch (x) {
+                case 1:
+                    clearConsole();
+                    AddNewItemCategory();
 
-        System.out.println();
-        System.out.print("                ENTER AN OPTION TO COTINUE :");
-        int x = input.nextInt();
-        switch (x) {
-            case 1:
-                clearConsole();
-                AddNewItemCategory();
-
-                break;
-           case 2:
-                clearConsole();
-                DeleteItemCategory();
-                break;
-            case 3:
-                clearConsole();
-                UpdateItemCategory();
-                break;
-            case 4:
-                clearConsole();
-               StockManage();
-                break;
-            default:
-                System.out.println("wrong input!!! please input number belongs to menu....");
+                    break;
+                case 2:
+                    clearConsole();
+                    DeleteItemCategory();
+                    break;
+                case 3:
+                    clearConsole();
+                    UpdateItemCategory();
+                    break;
+                case 4:
+                    clearConsole();
+                    StockManage();
+                    break;
+                default:
+                    System.out.println("wrong input!!! please input number belongs to menu....");
+            }
         }
     }
-
     private static void UpdateItemCategory() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                    UPDATE ITEM CATEGORY                        | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("UPDATE ITEM CATEGORY");
+
         L1:
         while (true) {
             System.out.print("Categeory name:");
@@ -436,34 +458,28 @@ class courseWork{
                     System.out.print("Enter the new Category name:");
                     itemCategory[i]= input.next();
                     System.out.println("after>>>"+Arrays.deepToString(itemCategory));
-                    System.out.print("Updated successfully!Do you want to update another category?(Y/N):");
-                    String yesNo= input.next();
-                    if(yesNo.equals("Y")){
+                    boolean checked=yesNo("Updated successfully!Do you want to update another category?(Y/N):");
+
+                    if(checked){
                         continue L1;
-                    } else if (yesNo.equals("N")) {
+                    } else if (checked==false) {
                         clearConsole();
                         ManageItemCategories();
-
                         break;
+
                     }
                 }else{
                     flag=true;
                 }
-
             }
             if(flag){
                 System.out.println("can't find Category.try again!");
                 continue L1;
             }
-
         }
     }
-
     private static void DeleteItemCategory() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                    DELETE ITEM CATEGORY                        | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("DELETE ITEM CATEGORY");
         if (itemCategory.length == 0) {
             System.out.print("oops seems like you havent add item category yet.please add supplier first press num 1 to  supplier manage page");
             int x = input.nextInt();
@@ -471,7 +487,6 @@ class courseWork{
                 AddNewItemCategory();
             }
         }
-
         System.out.println();
         boolean flag = false;
         L1:
@@ -484,11 +499,9 @@ class courseWork{
             String cName = input.next();
 
             for (int i = 0; i < itemCategory.length; i++) {
-
                 if (cName.equals(itemCategory[i])) {
                     itemCategory[i] = "deleted";
                     flag = true;
-
                 }
             }
             if(flag==false){
@@ -501,18 +514,15 @@ class courseWork{
                         temp[j] = itemCategory[i];
                         j++;
                     }
-
                 }
                 itemCategory = temp;
                 System.out.println("after>" + Arrays.deepToString(itemCategory));
                 System.out.println("deleted Successfully!");
                 L2:
                 while (true){
-                    System.out.print("\ndo you want   to delete another supplier(Y/N):");
-                    String yesNo = input.next();
-                    yesNo=yesNo.toUpperCase();
-                    if (yesNo.equals("Y")||yesNo.equals("YES")) {
+                    boolean checked=yesNo("\ndo you want to delete another category(Y/N):");
 
+                    if (checked) {
                         if(itemCategory.length==0){
                             System.out.println("\noops category list is empty!!");
 
@@ -528,8 +538,7 @@ class courseWork{
                             }
                         }
                         continue L1;
-                    } else if (yesNo.equals("N")||yesNo.equals("NO")) {
-
+                    } else if (checked==false) {
                         ManageItemCategories();
 
                     }else{
@@ -537,21 +546,15 @@ class courseWork{
                     }
                 }
             }
-
         }
     }
-
     private static void AddNewItemCategory() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                 ADD ITEM CATEGEORY                              | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("ADD ITEM CATEGORY");
         String x="";
         growItemCategory();
         boolean flag = false;
         L1:
         while (true) {
-
             System.out.print("Enter the new item category:");
             x = input.next();
 
@@ -567,23 +570,17 @@ class courseWork{
 
                 itemCategory[itemCategory.length - 1] = x;
                 System.out.println(Arrays.toString(itemCategory));
+                boolean checked=yesNo("added succesfully!Do you want to add another category(Y/N):");
 
-
-
-                System.out.print("added succesfully!Do you want to add another category(Y/N):");
-                String yesNo = input.next();
-                if (yesNo.equals("Y")) {
+                if (checked) {
                     growItemCategory();
                     continue L1;
-                } else if (yesNo.equals("N")) {
+                } else if (checked==false) {
                     clearConsole();
                     ManageItemCategories();
                     break;
                 }
-
-
             }
-
         }
     }
     private static void growItemCategory() {
@@ -593,57 +590,49 @@ class courseWork{
         }
         itemCategory=temp;
     }
-
-
     private static void SuplierManage() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                 SUPPLIER MANAGE                                  | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("SUPPLIER MANAGE");
+        while (true) {
+            System.out.println("		[1]Add Supplier                                                               [2]Update Supplier");
+            System.out.println("		[3]Delete Supplier                                                            [4]View Suppliers");
+            System.out.println("		[5]Search Supplier                                                            [6]Home Page");
 
-        System.out.println("		[1]Add Supplier                                                               [2]Update Supplier");
-        System.out.println("		[3]Delete Supplier                                                            [4]View Suppliers");
-        System.out.println("		[5]Search Supplier                                                            [6]Home Page");
+            System.out.println();
+            System.out.print("                ENTER AN OPTION TO COTINUE :");
+            int x = input.nextInt();
+            switch (x) {
+                case 1:
+                    clearConsole();
+                    AddSupplier();
 
-        System.out.println();
-        System.out.print("                ENTER AN OPTION TO COTINUE :");
-        int x = input.nextInt();
-        switch (x) {
-            case 1:
-                clearConsole();
-                AddSupplier();
-
-                break;
-            case 2:
-                clearConsole();
-                updateSupplier();
-                break;
-            case 3:
-                clearConsole();
-                deleteSupplier();
-                break;
-            case 4:
-                clearConsole();
-                viewSuppliers();
-                break;
-            case 5:
-                clearConsole();
-                searchSupplier();
-                break;
-            case 6:
-                clearConsole();
-                menu();
-                break;
-            default:
-                System.out.println("wrong input!!! please input number belongs to menu....");
+                    break;
+                case 2:
+                    clearConsole();
+                    updateSupplier();
+                    break;
+                case 3:
+                    clearConsole();
+                    deleteSupplier();
+                    break;
+                case 4:
+                    clearConsole();
+                    viewSuppliers();
+                    break;
+                case 5:
+                    clearConsole();
+                    searchSupplier();
+                    break;
+                case 6:
+                    clearConsole();
+                    menu();
+                    break;
+                default:
+                    System.out.println("wrong input!!! please input number belongs to menu....");
+            }
         }
     }
-
     private static void searchSupplier() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                SEARCH SUPPLIER                                  | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("SEARCH SUPPLIER");
         L1:
         while (true) {
             System.out.print("Supplier ID:");
@@ -653,11 +642,10 @@ class courseWork{
             for (int i = 0; i < supplier.length; i++) {
                 if (sId.equals(supplier[i][0])) {
                     System.out.println("Supplier ID:" + supplier[i][0] + "\nSupplier Name:" + supplier[i][1]);
-                    System.out.print("do you want to find another supplier(Y/N):");
-                    String yesNo = input.next();
-                    if (yesNo.equals("Y")) {
+                   boolean checked=yesNo("do you want to find another supplier(Y/N):");
+                    if (checked) {
                         continue L1;
-                    } else if (yesNo.equals("N")) {
+                    } else if (checked==false) {
                         clearConsole();
                         SuplierManage();
                         break;
@@ -672,8 +660,8 @@ class courseWork{
             }
         }
     }
-
     private static void viewSuppliers() {
+        title("VIEW SUPPLIERS");
         System.out.println("+-----------------------+-----------------------+");
         System.out.printf("|%15s        |%15s        |\n", "SUPPLIER NAME", "SUPPLIER ID");
         System.out.println("+-----------------------+-----------------------+");
@@ -681,20 +669,17 @@ class courseWork{
             System.out.printf("|%15s        |%15s        |\n", supplier[i][0], supplier[i][1]);
             System.out.println("+-----------------------+-----------------------+");
         }
-        System.out.print("Do you want to go supplier manage page(Y/N):");
-        String yesNo = input.next();
-        if (yesNo.equals("Y")) {
+        boolean checked=yesNo("Do you want to go supplier manage page(Y/N):");
+        if (checked) {
             clearConsole();
             SuplierManage();
+        } else if (checked==false) {
+            clearConsole();
+            menu();
         }
-
     }
-
     private static void deleteSupplier() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                    DELETE SUPPLIER                              | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("DELETE SUPPLIER");
         if (supplier.length == 0) {
             System.out.print("oops seems like you havent add supplier yet.please add supplier first press num 1 to  supplier manage page");
             int x = input.nextInt();
@@ -702,12 +687,10 @@ class courseWork{
                 SuplierManage();
             }
         }
-
         System.out.println();
         boolean flag = false;
         L1:
         while (true) {
-
             System.out.println("before>" + Arrays.deepToString(supplier));
             int j = 0;
             String[][] temp = new String[supplier.length-1][2];
@@ -715,12 +698,10 @@ class courseWork{
             String id = input.next();
 
             for (int i = 0; i < supplier.length; i++) {
-
                 if (id.equals(supplier[i][0])) {
                     supplier[i][0] = "deleted";
                     supplier[i][1] = "deleted";
                     flag = true;
-
                 }
             }
             if(flag==false){
@@ -733,21 +714,16 @@ class courseWork{
                         temp[j] = supplier[i];
                         j++;
                     }
-
                 }
                 supplier = temp;
                 System.out.println("after>" + Arrays.deepToString(supplier));
                 System.out.println("deleted Successfully!");
                 L2:
                 while (true){
-                    System.out.print("\ndo you want   to delete another supplier(Y/N):");
-                    String yesNo = input.next();
-                    yesNo=yesNo.toUpperCase();
-                    if (yesNo.equals("Y")||yesNo.equals("YES")) {
-
+                    boolean checked=yesNo("\ndo you want to delete another supplier(Y/N):");
+                    if (checked) {
                         if(supplier.length==0){
                             System.out.println("\noops supplier list is empty!!");
-
                             while (true) {
                                 System.out.print("\nEnter num'1' to go to Supplier manage page:");
                                 int x = input.nextInt();
@@ -760,8 +736,7 @@ class courseWork{
                             }
                         }
                         continue L1;
-                    } else if (yesNo.equals("N")||yesNo.equals("NO")) {
-
+                    } else if (checked==false) {
                         SuplierManage();
 
                     }else{
@@ -769,17 +744,10 @@ class courseWork{
                     }
                 }
             }
-
         }
     }
-
-
-
     private static void updateSupplier() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                    UPDATE SUPPLIER                               | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("UPDATE SUPPLIER");
         L1:
         while (true) {
             System.out.print("Supplier ID:");
@@ -787,17 +755,16 @@ class courseWork{
             boolean flag=false;
             for (int i = 0; i < supplier.length; i++) {
                 if (id.equals(supplier[i][0])) {
-                    System.out.print("Supplier name:");
-                    String X= input.next();
+                    System.out.println("Supplier name:"+supplier[i][1]);
                     System.out.println(Arrays.deepToString(supplier));
                     System.out.print("Enter the new supplier name:");
                     supplier[i][1]= input.next();
                     System.out.println(Arrays.deepToString(supplier));
-                    System.out.print("Updated successfully!Do you want to update another supplier?(Y/N):");
-                    String yesNo= input.next();
-                    if(yesNo.equals("Y")){
+
+                    boolean checked=yesNo("Updated successfully!Do you want to update another supplier?(Y/N):");
+                    if(checked){
                         continue L1;
-                    } else if (yesNo.equals("N")) {
+                    } else if (checked==false) {
                         clearConsole();
                         SuplierManage();
                         break;
@@ -805,22 +772,16 @@ class courseWork{
                 }else{
                     flag=true;
                 }
-
             }
             if(flag){
                 System.out.println("can't find supplier id.try again!");
                 continue L1;
             }
-
         }
-
     }
-
     private static void AddSupplier() {
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                       ADD SUPPLIER                               | ");
-        System.out.println("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("ADD SUPPLIER");
+
         String sId = "";
         String sName = "";
         grow();
@@ -846,16 +807,16 @@ class courseWork{
                 System.out.print("Supplier name:");
                 supplier[supplier.length - 1][1] = input.next();
                 System.out.println(Arrays.deepToString(supplier));
-
-                System.out.print("added succesfully!Do you want to add another suplier(Y/N):");
-                String yesNo= input.next();
-                if(yesNo.equals("Y")){
+            boolean checked=yesNo("added succesfully!Do you want to add another suplier(Y/N):");
+            if(checked){
                     grow();
                     continue L1;
-                }else if(yesNo.equals("N")){
+                }else if(checked==false){
                     clearConsole();
                     SuplierManage();
                     break;
+                }else{
+
                 }
 
 
@@ -863,7 +824,6 @@ class courseWork{
 
         }
     }
-
     private static void grow() {
         String [][]temp=new String[supplier.length+1][2];
         for (int i=0;i< supplier.length;i++){
@@ -873,12 +833,9 @@ class courseWork{
         supplier=temp;
 
     }
-
     private static void ChangeTheCredentials() {
-        System.out.println ("                    +----------------------------------------------------------------------------------+");
-        System.out.println("                    |                                  CREDENTIAL MANAGE                               | ");
-        System.out.println ("                    +----------------------------------------------------------------------------------+");
-        System.out.println();
+        title("CREDENTIAL MANAGE");
+
         while (true){
             System.out.print("please enter the user name to verify it's you:");
             String checkUserName=input.next();
@@ -897,9 +854,9 @@ class courseWork{
             }else{
                 System.out.print("enter your new password:");
                 password= input.next();
-                System.out.print("password changed successfully!Do you want to go home page(Y/N):");
-                String yesNo= input.next();
-                if (yesNo.equals("Y")){
+                boolean checked=yesNo("password changed successfully!Do you want to go home page(Y/N):");
+
+                if (checked){
                     clearConsole();
                     menu();
                 }
